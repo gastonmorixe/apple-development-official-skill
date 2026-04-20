@@ -117,4 +117,8 @@ Examples:
 
 ## License
 
-MIT
+MIT License
+
+Copyright (c) 2026 Gaston Morixe <gaston@gastonmorixe.com> (https://gastonmorixe.com)
+
+See [LICENSE](./LICENSE) for the full text.
