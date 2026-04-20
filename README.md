@@ -14,8 +14,8 @@ It is a curated, flattened, public-release skill that preserves the value of App
 
 ## Quick Install
 
-```bash
-npx skills add https://github.com/gastonmorixe/apple-development-official-skill \
+```
+$ npx skills add https://github.com/gastonmorixe/apple-development-official-skill \
     --skill apple-development-official
 ```
 
