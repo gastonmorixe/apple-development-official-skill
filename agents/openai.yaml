@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apple Development Official"
+  short_description: "Official Xcode-based Apple development guidance"
+  default_prompt: "Use $apple-development-official to apply official Xcode and Apple guidance for Swift, SwiftUI, Liquid Glass, FoundationModels, AppIntents, and previews."

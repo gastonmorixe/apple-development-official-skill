@@ -1,0 +1,118 @@
+---
+title: Apple Development Official Source Coverage Checklist
+---
+
+# Source Coverage Checklist
+
+## Runtime Docs
+- [x] `assistant-models-versions-and-pairings.md` integrates 4 source files.
+- [x] `assistant-onboarding-and-privacy.md` integrates 4 source files.
+- [x] `assistant-tools-surfaces-and-actions.md` integrates 1 source files.
+- [x] `platform-cross-framework-liquid-glass.md` integrates 3 source files.
+- [x] `platform-foundation-models-intents-and-intelligence.md` integrates 4 source files.
+- [x] `platform-maps-storekit-charts-and-widgets.md` integrates 4 source files.
+- [x] `platform-swift-language-concurrency-and-data.md` integrates 4 source files.
+- [x] `platform-swiftui-liquid-glass-and-modern-ui.md` integrates 5 source files.
+- [x] `prompting-code-editing-documentation-and-apply.md` integrates 9 source files.
+- [x] `prompting-context-search-and-selection.md` integrates 12 source files.
+- [x] `prompting-core-rules.md` integrates 8 source files.
+- [x] `prompting-planner-executor-and-retrieval.md` integrates 5 source files.
+- [x] `prompting-preview-and-playground-generation.md` integrates 4 source files.
+- [x] `prompting-query-response-and-titles.md` integrates 8 source files.
+- [x] `system-intelligence-context-and-telemetry.md` integrates 3 source files.
+
+## Maintenance-Only Audit Coverage
+- [x] `maintenance-only`: 13 local audit files are tracked without being loaded at runtime.
+
+## File-Level Coverage
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/AppIntents-Updates.md` -> `SKILL_REFERENCES/platform-foundation-models-intents-and-intelligence.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/AppKit-Implementing-Liquid-Glass-Design.md` -> `SKILL_REFERENCES/platform-cross-framework-liquid-glass.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/Foundation-AttributedString-Updates.md` -> `SKILL_REFERENCES/platform-swift-language-concurrency-and-data.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/FoundationModels-Using-on-device-LLM-in-your-app.md` -> `SKILL_REFERENCES/platform-foundation-models-intents-and-intelligence.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/Implementing-Assistive-Access-in-iOS.md` -> `SKILL_REFERENCES/platform-foundation-models-intents-and-intelligence.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/Implementing-Visual-Intelligence-in-iOS.md` -> `SKILL_REFERENCES/platform-foundation-models-intents-and-intelligence.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/MapKit-GeoToolbox-PlaceDescriptors.md` -> `SKILL_REFERENCES/platform-maps-storekit-charts-and-widgets.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/StoreKit-Updates.md` -> `SKILL_REFERENCES/platform-maps-storekit-charts-and-widgets.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/Swift-Charts-3D-Visualization.md` -> `SKILL_REFERENCES/platform-maps-storekit-charts-and-widgets.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/Swift-Concurrency-Updates.md` -> `SKILL_REFERENCES/platform-swift-language-concurrency-and-data.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/Swift-InlineArray-Span.md` -> `SKILL_REFERENCES/platform-swift-language-concurrency-and-data.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/SwiftData-Class-Inheritance.md` -> `SKILL_REFERENCES/platform-swift-language-concurrency-and-data.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/SwiftUI-AlarmKit-Integration.md` -> `SKILL_REFERENCES/platform-swiftui-liquid-glass-and-modern-ui.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/SwiftUI-Implementing-Liquid-Glass-Design.md` -> `SKILL_REFERENCES/platform-swiftui-liquid-glass-and-modern-ui.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/SwiftUI-New-Toolbar-Features.md` -> `SKILL_REFERENCES/platform-swiftui-liquid-glass-and-modern-ui.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/SwiftUI-Styled-Text-Editing.md` -> `SKILL_REFERENCES/platform-swiftui-liquid-glass-and-modern-ui.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/SwiftUI-WebKit-Integration.md` -> `SKILL_REFERENCES/platform-swiftui-liquid-glass-and-modern-ui.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/UIKit-Implementing-Liquid-Glass-Design.md` -> `SKILL_REFERENCES/platform-cross-framework-liquid-glass.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/WidgetKit-Implementing-Liquid-Glass-Design.md` -> `SKILL_REFERENCES/platform-cross-framework-liquid-glass.md`
+- [x] `XCODE_ADDITIONAL_DOCUMENTATION/Widgets-for-visionOS.md` -> `SKILL_REFERENCES/platform-maps-storekit-charts-and-widgets.md`
+- [x] `XCODE_RESOURCES/AdditionalFiles.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/AgentAdditionalContext.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/AgentSystemPromptAddition.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-core-rules.md`
+- [x] `XCODE_RESOURCES/AgentVersions.plist` -> `SKILL_REFERENCES/assistant-models-versions-and-pairings.md`
+- [x] `XCODE_RESOURCES/ApprovedIntegrationModelPairings.plist` -> `SKILL_REFERENCES/assistant-models-versions-and-pairings.md`
+- [x] `XCODE_RESOURCES/BasicSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-core-rules.md`
+- [x] `XCODE_RESOURCES/ChatTitleResolver.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-query-response-and-titles.md`
+- [x] `XCODE_RESOURCES/CodingToolTemplateDocument.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/CodingToolTemplateExplain.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/CodingToolTemplateGeneratePlayground.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-preview-and-playground-generation.md`
+- [x] `XCODE_RESOURCES/CodingToolTemplateGeneratePreview.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-preview-and-playground-generation.md`
+- [x] `XCODE_RESOURCES/ContextItems.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/CurrentFile.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/CurrentFileAbbreviated.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/CurrentFileName.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/CurrentSelection.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/FastApplyIntegratorSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/FastApplyIntegratorUserPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/GenerateDocumentation.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/GeneratePlayground.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-preview-and-playground-generation.md`
+- [x] `XCODE_RESOURCES/GeneratePreview.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-preview-and-playground-generation.md`
+- [x] `XCODE_RESOURCES/IDEIntelligenceChat.xcplugindata` -> `SKILL_REFERENCES/assistant-tools-surfaces-and-actions.md`
+- [x] `XCODE_RESOURCES/InQueryDetailedGuidelines.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-query-response-and-titles.md`
+- [x] `XCODE_RESOURCES/InQueryShortGuidelines.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-query-response-and-titles.md`
+- [x] `XCODE_RESOURCES/Info.plist` -> `SKILL_REFERENCES/assistant-models-versions-and-pairings.md`
+- [x] `XCODE_RESOURCES/InstructionEmbeddingsQueryExpansion.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-planner-executor-and-retrieval.md`
+- [x] `XCODE_RESOURCES/IntegratorSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/IntegratorUserPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/Interfaces.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-query-response-and-titles.md`
+- [x] `XCODE_RESOURCES/Issues.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/LocalInfillEmbeddingsQueryExpansion.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-planner-executor-and-retrieval.md`
+- [x] `XCODE_RESOURCES/NewCodeIntegratorSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/NewCodeIntegratorUserPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-code-editing-documentation-and-apply.md`
+- [x] `XCODE_RESOURCES/NewKnowledge.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/NoSelection.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_ONBOARDING_CONTENTS/Info.plist` -> `SKILL_REFERENCES/assistant-onboarding-and-privacy.md`
+- [x] `XCODE_ONBOARDING_RESOURCES/IntelligenceInXcode.plist` -> `SKILL_REFERENCES/assistant-onboarding-and-privacy.md`
+- [x] `XCODE_ONBOARDING_RESOURCES/en.lproj/IntelligenceInXcode.strings` -> `SKILL_REFERENCES/assistant-onboarding-and-privacy.md`
+- [x] `XCODE_ONBOARDING_CONTENTS/version.plist` -> `SKILL_REFERENCES/assistant-onboarding-and-privacy.md`
+- [x] `XCODE_RESOURCES/OriginalFile.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/PlannerExecutorStyleNoClassify.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-planner-executor-and-retrieval.md`
+- [x] `XCODE_RESOURCES/PlannerExecutorStylePlannerSystemPrompt-gpt_5.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-planner-executor-and-retrieval.md`
+- [x] `XCODE_RESOURCES/PlannerExecutorStylePlannerSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-planner-executor-and-retrieval.md`
+- [x] `XCODE_RESOURCES/Query.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-query-response-and-titles.md`
+- [x] `XCODE_RESOURCES/ReasoningSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-core-rules.md`
+- [x] `XCODE_RESOURCES/SearchResults.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-context-search-and-selection.md`
+- [x] `XCODE_RESOURCES/Snippets.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-query-response-and-titles.md`
+- [x] `XCODE_RESOURCES/TextEditorToolSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-core-rules.md`
+- [x] `XCODE_RESOURCES/ToolAssistedBasicSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-core-rules.md`
+- [x] `XCODE_RESOURCES/ToolAssistedInQueryDetailedGuidelines.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-query-response-and-titles.md`
+- [x] `XCODE_RESOURCES/ToolAssistedInQueryShortGuidelines.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-query-response-and-titles.md`
+- [x] `XCODE_RESOURCES/ToolAssistedReasoningSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-core-rules.md`
+- [x] `XCODE_RESOURCES/VariantASystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-core-rules.md`
+- [x] `XCODE_RESOURCES/VariantBSystemPrompt.idechatprompttemplate` -> `SKILL_REFERENCES/prompting-core-rules.md`
+- [x] `XCODE_RESOURCES/version.plist` -> `SKILL_REFERENCES/assistant-models-versions-and-pairings.md`
+- [x] `SYSTEM_TASKED_CONFIG_JSON` -> `SKILL_REFERENCES/system-intelligence-context-and-telemetry.md`
+- [x] `SYSTEM_FOUNDATION_MODELS_PLIST` -> `SKILL_REFERENCES/system-intelligence-context-and-telemetry.md`
+- [x] `SYSTEM_INTELLIGENCE_PLIST` -> `SKILL_REFERENCES/system-intelligence-context-and-telemetry.md`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/claude/2.1.59/Info.plist` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/claude/2.1.59/claude` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/codex/0.106.0/Info.plist` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/codex/0.106.0/codex` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/.personality_migration` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/config.toml` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/rules/xcode.rules` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/skills/.system/.codex-system-skills.marker` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/skills/.system/skill-creator/SKILL.md` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/skills/.system/skill-creator/agents/openai.yaml` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/skills/.system/skill-creator/references/openai_yaml.md` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/skills/.system/skill-installer/SKILL.md` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/skills/.system/skill-installer/agents/openai.yaml` -> `maintenance-only`
