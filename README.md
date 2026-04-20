@@ -1,6 +1,6 @@
 # Apple Development Official
 
-A public Codex skill built from Apple-shipped Xcode Agentic Coding material, reorganized into a clean, agent-friendly reference set for serious Apple platform development.
+AI Agent [SKILL](https://agentskills.io/specification) built from Apple-shipped Xcode Agentic Coding material, reorganized into a clean, agent-friendly reference set for serious Apple platform development.
 
 ![Version](https://img.shields.io/badge/version-26.4.1.1-black)
 ![Xcode](https://img.shields.io/badge/Xcode-26.4.1-blue)
