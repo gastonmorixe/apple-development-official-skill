@@ -1168,7 +1168,7 @@ def write_maintenance(records: list[SourceRecord]) -> None:
         [
             "# Skill Manifest",
             "",
-            "- `skill_version`: `0.1.0`",
+            "- `skill_version`: `26.4.1.1`",
             f"- `snapshot_date`: `{date.today().isoformat()}`",
             "- `runtime_structure`: flat `references/` directory with functional docs instead of mirrored Apple/Xcode paths.",
             "- `selected_xcode_developer_dir`: `SELECTED_XCODE_DEVELOPER_DIR`",

@@ -4,7 +4,7 @@ title: Apple Development Official Skill Manifest
 
 # Skill Manifest
 
-- `skill_version`: `0.1.0`
+- `skill_version`: `26.4.1.1`
 - `snapshot_date`: `2026-04-19`
 - `runtime_structure`: flat `references/` directory with functional docs instead of mirrored Apple/Xcode paths.
 - `selected_xcode_developer_dir`: `SELECTED_XCODE_DEVELOPER_DIR`
