@@ -12,6 +12,13 @@ It is not a raw dump of Xcode files.
 
 It is a curated, flattened, public-release skill that preserves the value of Apple's original prompt templates, docs, onboarding copy, model wiring, and system context while reorganizing them into practical references an agent can actually use.
 
+## Quick Install
+
+```bash
+npx skills add https://github.com/gastonmorixe/apple-development-official-skill \
+    --skill apple-development-official
+```
+
 ## Why This Exists
 
 Modern Apple development is moving fast. SwiftUI patterns change. Liquid Glass is new. FoundationModels is new. Xcode itself now ships prompt templates, retrieval hints, model metadata, onboarding text, and Apple-authored docs specifically meant to support coding workflows.
