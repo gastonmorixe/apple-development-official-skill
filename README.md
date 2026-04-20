@@ -1,16 +1,10 @@
-# Apple Development Official
+<h1 align="center">Apple Development "Official" Skill </h1>
 
-AI Agent [SKILL](https://agentskills.io/specification) built from Apple-shipped Xcode Agentic Coding material, reorganized into a clean, agent-friendly reference set for serious Apple platform development.
+<p align="center">Apple's <a href="https://agentskills.io/specification">SKILL</a> built from Xcode Agentic Coding material.<br> Reorganized into a clean, agent-friendly reference set for serious Apple platform development.</p>
 
-![Version](https://img.shields.io/badge/version-26.4.1.1-black)
-![Xcode](https://img.shields.io/badge/Xcode-26.4.1-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+<p align="center"><img src="https://img.shields.io/badge/version-26.4.1.1-black" alt="Version 2.4.1"> <img src="https://img.shields.io/badge/Xcode-26.4.1-blue" alt="Generated from Xcode 2.4.1"> <img src="https://img.shields.io/badge/license-MIT-green" alt="License"></p>
 
-`Apple Development Official` turns the Apple development guidance bundled inside Xcode into a usable skill for real coding work.
-
-It is not a raw dump of Xcode files.
-
-It is a curated, flattened, public-release skill that preserves the value of Apple's original prompt templates, docs, onboarding copy, model wiring, and system context while reorganizing them into practical references an agent can actually use.
+`apple-development-pfficial` turns the Apple development guidance bundled inside Xcode into a usable skill for real coding work. It is **not** a raw dump of Xcode files. It is a *curated*, flattened, public-release skill that preserves the value of Apple's original prompt templates, docs, onboarding copy, model wiring, and system context while reorganizing them into practical references an agent can actually use.
 
 ## Quick Install
 
@@ -20,9 +14,9 @@ $ npx skills add https://github.com/gastonmorixe/apple-development-official-skil
     --skill apple-development-official
 ```
 
-## Why This Exists
+## Why another skill?
 
-Modern Apple development is moving fast. SwiftUI patterns change. Liquid Glass is new. FoundationModels is new. Xcode itself now ships prompt templates, retrieval hints, model metadata, onboarding text, and Apple-authored docs specifically meant to support coding workflows.
+Apple development **moves fast**. **SwiftUI** patterns change. **Liquid Glass** is new. **FoundationModels** is new. **Xcode** itself now ships *prompt templates*, retrieval hints, model metadata, onboarding text, and Apple-authored docs specifically meant to support coding workflows.
 
 This skill captures that material and makes it reusable outside the Xcode bundle layout.
 
@@ -47,13 +41,13 @@ Runtime references are built from:
 - `46` Xcode `*.idechatprompttemplate` files
 - `20` bundled Apple markdown guides from `AdditionalDocumentation`
 - Xcode assistant metadata and onboarding sources
-- system Apple Intelligence policy and telemetry context
+- System Apple Intelligence policy and telemetry context
 
-User-local Coding Assistant files are intentionally excluded from runtime references and kept only in maintenance for audit and future update work.
+User-local Coding Assistant files are **intentionally excluded** from runtime references and kept only in maintenance for audit and future update work.
 
 ## How It Is Organized
 
-The skill is intentionally flat and functional.
+The skill is intentionally **flat** and **functional**.
 
 Instead of mirroring `Contents/Resources/...` and similar internal Apple paths, the runtime corpus is split into clear reference docs such as:
 
@@ -78,7 +72,7 @@ Place the skill in your harness skills directory (i.e. `~/.agents/skills`, `~/.c
 ```
 $ mkdir -p ~/.claude/skills
 $ cd ~/.claude/skills
-$ git clone https://github.com/gastonmorixe/apple-development-official-skill apple-development-official && \
+$ git clone https://github.com/gastonmorixe/apple-development-official-skill apple-development-official
 $ ln -sfn ~/.agents/skills/apple-development-official ~/.claude/skills/apple-development-official
 ```
 
@@ -90,11 +84,11 @@ Use this skill when the task needs Apple-specific development guidance rather th
 
 Examples:
 
-- “Add a Liquid Glass treatment to this SwiftUI view and keep it idiomatic for current Xcode.”
-- “Generate a `#Preview` for this view the way Xcode expects.”
-- “Help me refactor this SwiftUI screen using current Apple patterns, not old representable workarounds.”
-- “Explain how Xcode steers agentic edits and model/tool behavior.”
-- “Show me how FoundationModels and AppIntents fit together for this feature.”
+- "Add a *Liquid Glass* treatment to this SwiftUI view and keep it idiomatic for current Xcode."
+- "Generate a `#Preview` for this view the way Xcode expects."
+- "Help me refactor this *SwiftUI* screen using current *Apple patterns*, not old representable workarounds."
+- "Explain how Xcode steers agentic edits and model/tool behavior."
+- "Show me how *FoundationModels* and *AppIntents* fit together for this feature."
 
 ## Design Principles
 
@@ -106,11 +100,11 @@ Examples:
 
 ## Repository Layout
 
-- [`SKILL.md`](./SKILL.md): skill entrypoint and loading rules
-- [`references/`](./references): flat runtime reference set
-- [`scripts/build_reference_corpus.py`](./scripts/build_reference_corpus.py): rebuilds the runtime corpus from source materials
-- [`scripts/scan_sources.sh`](./scripts/scan_sources.sh): rescans upstream Apple/Xcode inputs
-- [`maintenance/`](./maintenance): provenance, source inventory, selection rationale, and coverage tracking
+- [`SKILL.md`](./SKILL.md): skill entrypoint and loading rules.
+- [`references/`](./references): flat runtime reference set.
+- [`scripts/build_reference_corpus.py`](./scripts/build_reference_corpus.py): rebuilds the runtime corpus from source materials.
+- [`scripts/scan_sources.sh`](./scripts/scan_sources.sh): rescans upstream Apple/Xcode inputs.
+- [`maintenance/`](./maintenance): provenance, source inventory, selection rationale, and coverage tracking.
 
 ## Updating For A New Xcode Release
 
@@ -121,9 +115,9 @@ Examples:
 
 ## Public Release Notes
 
-- This project is derived from Apple-shipped Xcode Intelligence material, but it is reorganized and published as an independent skill.
-- It is designed for practical agent use, not for reproducing Apple's internal on-disk structure.
-- It is not affiliated with or endorsed by Apple.
+- This project is inspired from Apple-shipped Xcode Agentic / Intelligence material, but it is re-written, reorganized and published as an independent skill.
+- It is designed for practical agent use, not for reproducing Apple's internal docs nor on-disk structure.
+- **It is not affiliated with or endorsed by Apple**.
 
 ## License
 
