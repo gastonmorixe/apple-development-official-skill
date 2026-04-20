@@ -14,6 +14,7 @@ It is a curated, flattened, public-release skill that preserves the value of App
 
 ## Quick Install
 
+Using [skills.sh](https://skills.sh):
 ```
 $ npx skills add https://github.com/gastonmorixe/apple-development-official-skill \
     --skill apple-development-official
@@ -72,14 +73,16 @@ Start with:
 
 ## Installation
 
-Place the skill in your Codex skills directory, or symlink it from your managed skills folder.
+Place the skill in your harness skills directory (i.e. `~/.agents/skills`, `~/.claude/skills`, etc), or symlink it from your managed skills folder.
 
-```bash
-mkdir -p ~/.codex/skills
-ln -sfn ~/.agents/skills/apple-development-official ~/.codex/skills/apple-development-official
+```
+$ mkdir -p ~/.claude/skills
+$ cd ~/.claude/skills
+$ git clone https://github.com/gastonmorixe/apple-development-official-skill apple-development-official && \
+$ ln -sfn ~/.agents/skills/apple-development-official ~/.claude/skills/apple-development-official
 ```
 
-If you keep skills directly in `~/.codex/skills`, you can copy the folder there instead.
+If you keep skills directly in `~/.codex/skills` or `~/.claude/skills`, you can copy the folder there instead.
 
 ## Usage
 
