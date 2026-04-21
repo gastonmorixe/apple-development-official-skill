@@ -22,7 +22,7 @@ title: Apple Development Official Source Coverage Checklist
 - [x] `system-intelligence-context-and-telemetry.md` integrates 3 source files.
 
 ## Maintenance-Only Audit Coverage
-- [x] `maintenance-only`: 13 local audit files are tracked without being loaded at runtime.
+- [x] `maintenance-only`: 15 local audit files are tracked without being loaded at runtime.
 
 ## File-Level Coverage
 - [x] `XCODE_ADDITIONAL_DOCUMENTATION/AppIntents-Updates.md` -> `SKILL_REFERENCES/platform-foundation-models-intents-and-intelligence.md`
@@ -105,6 +105,8 @@ title: Apple Development Official Source Coverage Checklist
 - [x] `SYSTEM_INTELLIGENCE_PLIST` -> `SKILL_REFERENCES/system-intelligence-context-and-telemetry.md`
 - [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/claude/2.1.59/Info.plist` -> `maintenance-only`
 - [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/claude/2.1.59/claude` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/claude/2.1.81/Info.plist` -> `maintenance-only`
+- [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/claude/2.1.81/claude` -> `maintenance-only`
 - [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/codex/0.106.0/Info.plist` -> `maintenance-only`
 - [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/Agents/codex/0.106.0/codex` -> `maintenance-only`
 - [x] `LOCAL_XCODE_CODINGASSISTANT_ROOT/codex/.personality_migration` -> `maintenance-only`

@@ -550,6 +550,8 @@ def write_text(path: Path, content: str) -> None:
 
 
 def sha256(path: Path) -> str:
+    if not path.exists():
+        return "missing"
     h = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
@@ -710,6 +712,258 @@ def frontmatter(title: str) -> list[str]:
     return ["---", f"title: {title}", "---", ""]
 
 
+COMMON_TEMPLATE_LABELS = {
+    "MCPTool_DocumentationSearch": "Apple documentation search tool",
+    "MCPTool_BuildProject": "project build tool",
+    "MCPTool_XcodeRefreshCodeIssuesInFile": "fast file diagnostics tool",
+    "MCPTool_ExecuteSnippet": "snippet execution tool",
+    "FilePath": "file path",
+    "StartLine": "start line",
+    "EndLine": "end line",
+    "SelectedCode": "selected code",
+    "targetSymbol": "target symbol",
+    "originalCode": "original code",
+    "update": "update snippet",
+    "originalFile": "original file",
+    "modelResponse": "model response",
+    "userQuestion": "user question",
+    "userPrompt": "user prompt",
+    "query": "query",
+    "message": "message",
+    "currentFormattedDate": "current formatted date",
+    "xcodeVersion": "selected Xcode version",
+    "currentFileName": "current file name",
+    "newKnowledgeContent": "new knowledge content",
+    "sourceCode": "source code",
+}
+
+
+def fence_for(text: str) -> str:
+    longest = max((len(match) for match in re.findall(r"`+", text)), default=0)
+    return "`" * max(3, longest + 1)
+
+
+def fenced_block(language: str, text: str) -> list[str]:
+    fence = fence_for(text)
+    open_fence = f"{fence}{language}" if language else fence
+    return [open_fence, text.rstrip(), fence]
+
+
+def shift_markdown_headings(text: str, amount: int) -> str:
+    lines: list[str] = []
+    in_fence = False
+    active_fence = ""
+    for line in text.splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith("```") or stripped.startswith("~~~"):
+            marker = stripped[:3]
+            if not in_fence:
+                in_fence = True
+                active_fence = marker
+            elif marker == active_fence:
+                in_fence = False
+                active_fence = ""
+            lines.append(line)
+            continue
+        if not in_fence:
+            match = re.match(r"^(#{1,6})(\s+.*)$", line)
+            if match:
+                depth = min(6, len(match.group(1)) + amount)
+                lines.append("#" * depth + match.group(2))
+                continue
+        lines.append(line)
+    return "\n".join(lines).rstrip()
+
+
+def humanize_identifier(token: str) -> str:
+    token = token.strip()
+    if token in COMMON_TEMPLATE_LABELS:
+        return COMMON_TEMPLATE_LABELS[token]
+    token = token.replace(".", " ")
+    token = token.replace("_", " ")
+    token = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", token)
+    token = " ".join(token.split())
+    return token.lower() if token else "value"
+
+
+def normalize_placeholder(expr: str) -> str:
+    return f"<{humanize_identifier(expr)}>"
+
+
+def normalize_condition(expr: str) -> str:
+    label = humanize_identifier(expr)
+    if label.endswith(" tool"):
+        return f"if the {label} is available"
+    return f"if {label} is available"
+
+
+def normalize_fence_placeholder(expr: str) -> str:
+    return "<" + humanize_identifier(expr).replace(" ", "-") + ">"
+
+
+def normalize_fence_info(line: str) -> str:
+    stripped = line.strip()
+    if not stripped.startswith("```") or "{{" not in stripped:
+        return line
+    indent = line[: len(line) - len(line.lstrip())]
+    info = stripped[3:]
+    info = re.sub(r"\{\{\s*(.+?)\s*\}\}", lambda match: normalize_fence_placeholder(match.group(1)), info)
+    return indent + "```" + info
+
+
+def adapt_prompt_template(text: str) -> str:
+    text = re.sub(r"(\{%\s*[^%]+%\})", r"\n\1\n", text)
+    output: list[str] = []
+    block_stack: list[tuple[str, str]] = []
+    for raw_line in text.splitlines():
+        line = raw_line.rstrip()
+        stripped = line.strip()
+        if not stripped:
+            output.append("")
+            continue
+
+        indent = line[: len(line) - len(line.lstrip())]
+
+        if_match = re.fullmatch(r"\{%\s*if\s+(.+?)\s*%\}", stripped)
+        if if_match:
+            condition = normalize_condition(if_match.group(1))
+            block_stack.append(("if", condition))
+            output.append(f"{indent}[{condition}]")
+            continue
+
+        else_match = re.fullmatch(r"\{%\s*else\s*%\}", stripped)
+        if else_match:
+            output.append(f"{indent}[otherwise]")
+            continue
+
+        endif_match = re.fullmatch(r"\{%\s*endif\s*%\}", stripped)
+        if endif_match:
+            if block_stack and block_stack[-1][0] == "if":
+                _, condition = block_stack.pop()
+                output.append(f"{indent}[end {condition}]")
+            continue
+
+        for_match = re.fullmatch(r"\{%\s*for\s+(.+?)\s+in\s+(.+?)\s*%\}", stripped)
+        if for_match:
+            item_name = humanize_identifier(for_match.group(1))
+            collection_name = humanize_identifier(for_match.group(2))
+            label = f"repeat for each {item_name} in {collection_name}"
+            block_stack.append(("for", label))
+            output.append(f"{indent}[{label}]")
+            continue
+
+        endfor_match = re.fullmatch(r"\{%\s*endfor\s*%\}", stripped)
+        if endfor_match:
+            if block_stack and block_stack[-1][0] == "for":
+                _, label = block_stack.pop()
+                output.append(f"{indent}[end {label}]")
+            continue
+
+        line = re.sub(r"\{\{\s*(.+?)\s*\}\}", lambda match: normalize_placeholder(match.group(1)), line)
+        line = normalize_fence_info(line)
+        line = line.replace('tools from the "xcode-tools" MCP server whenever possible', "Apple and Xcode-integrated tools whenever possible")
+        line = line.replace('DocumentationSearch MCP command from "xcode-tools"', "Apple documentation search tool")
+        line = line.replace('BuildProject MCP command from "xcode-tools"', "project build tool")
+        line = line.replace("XcodeRead tool", "file-reading tool")
+        line = line.replace("XcodeUpdate tool", "code-editing tool")
+        line = line.replace("edit_file", "code-editing tool")
+        line = line.replace("create_file", "file-creation tool")
+        line = line.replace("query_search", "project-search tool")
+        line = line.replace("Apple documentation search tool MCP command from \"xcode-tools\"", "Apple documentation search tool")
+        line = line.replace("project build tool MCP command from \"xcode-tools\"", "project build tool")
+        line = line.replace("`DocumentationSearch`", "the Apple documentation search tool")
+        line = line.replace("`BuildProject`", "the project build tool")
+        line = line.replace("`XcodeRefreshCodeIssuesInFile`", "the fast file diagnostics tool")
+        line = line.replace("`ExecuteSnippet`", "the snippet execution tool")
+        line = line.replace('the Apple documentation search tool MCP command from "xcode-tools"', "the Apple documentation search tool")
+        line = line.replace('the project build tool MCP command from "xcode-tools"', "the project build tool")
+        line = line.replace("using the `classify_message`", "using a message-classification step")
+        line = line.replace("using `classify_message`", "using a message-classification step")
+        line = line.replace("use the `classify_message`", "use a message-classification step")
+        line = line.replace("use `classify_message`", "use a message-classification step")
+        line = line.replace("`classify_message`", "`message classification`")
+        line = line.replace("available code-editing tool", "code-editing tool")
+        line = line.replace("available file-creation tool", "file-creation tool")
+        line = line.replace("available project-search tool", "project-search tool")
+        line = line.replace("available file-reading tool", "file-reading tool")
+        line = line.replace("`code-editing tool` tool", "the code-editing tool")
+        line = line.replace("`file-creation tool`", "the file-creation tool")
+        line = line.replace("`project-search tool` tool", "the project-search tool")
+        line = line.replace(" tool tool", " tool")
+        line = line.replace("the the ", "the ")
+        line = line.replace("use your tools, like `str_replace`, `view`, `create`, and `project-search tool`.", "use your editing, file-viewing, file-creation, and project-search tools.")
+        line = line.replace("your `view` tool", "your file-viewing tool")
+        output.append(line)
+
+    cleaned: list[str] = []
+    previous_blank = False
+    for line in output:
+        is_blank = not line.strip()
+        if is_blank and previous_blank:
+            continue
+        cleaned.append(line)
+        previous_blank = is_blank
+    return "\n".join(cleaned).strip()
+
+
+def plutil_dump(path: Path) -> tuple[str, str]:
+    if not path.exists():
+        return f"Missing source file: {path}", "text"
+    json_result = subprocess.run(
+        ["plutil", "-convert", "json", "-o", "-", str(path)],
+        capture_output=True,
+        text=True,
+    )
+    if json_result.returncode == 0:
+        return json_result.stdout.rstrip(), "json"
+    pretty_result = subprocess.run(
+        ["plutil", "-p", str(path)],
+        capture_output=True,
+        text=True,
+    )
+    if pretty_result.returncode == 0:
+        return pretty_result.stdout.rstrip(), "text"
+    raise RuntimeError(f"Unable to serialize structured file: {path}")
+
+
+def render_source_payload(path: Path) -> tuple[str, str, bool]:
+    if not path.exists():
+        return f"Missing source file: {path}", "text", True
+    if path.suffix == ".md":
+        return read_text(path).rstrip(), "markdown", False
+    if path.suffix == ".json":
+        text = read_text(path).rstrip()
+        try:
+            return json.dumps(json.loads(text), indent=2, sort_keys=True), "json", True
+        except json.JSONDecodeError:
+            return text, "json", True
+    if path.suffix in {".plist", ".strings", ".xcplugindata"}:
+        text, language = plutil_dump(path)
+        return text, language, True
+    return read_text(path).rstrip(), "text", True
+
+
+def append_source_sections(lines: list[str], source_paths: list[Path]) -> None:
+    lines.extend(["", "## Source Content"])
+    for path in source_paths:
+        lines.extend(["", f"### {clean_title(path.name)}", "", f"- Source file: `{symbolic_path(path)}`", ""])
+        if path.suffix == ".idechatprompttemplate":
+            if path.exists():
+                lines.append("- Rendering: adapted from Apple template syntax for skill use.")
+                lines.append("")
+                payload = adapt_prompt_template(read_text(path))
+            else:
+                payload = f"Missing source file: {path}"
+            language = "text"
+            use_fence = True
+        else:
+            payload, language, use_fence = render_source_payload(path)
+        if use_fence:
+            lines.extend(fenced_block(language, payload))
+        else:
+            lines.append(shift_markdown_headings(payload, 2))
+
+
 def render_runtime_doc(spec: RuntimeDocSpec) -> str:
     lines = frontmatter(spec.title)
     lines.extend(
@@ -726,14 +980,13 @@ def render_runtime_doc(spec: RuntimeDocSpec) -> str:
     lines.extend(f"- {item}" for item in spec.apply_rules)
     lines.extend(["", "## Source Files Integrated"])
     lines.extend(f"- `{path.name}`" for path in spec.source_paths)
-    for path in spec.source_paths:
-        lines.extend(["", f"### {clean_title(path.name)}"])
-        bullets = prompt_source_bullets(path) if spec.doc_kind == "prompt" else guide_source_bullets(path)
-        lines.extend(f"- {bullet}" for bullet in bullets)
+    append_source_sections(lines, spec.source_paths)
     return "\n".join(lines)
 
 
 def load_plist(path: Path):
+    if not path.exists():
+        return {}
     return plistlib.loads(path.read_bytes())
 
 
@@ -903,18 +1156,18 @@ def render_onboarding_privacy_doc() -> str:
             f"- `SPLASH_SUMMARY`: {strings_data.get('SPLASH_SUMMARY')}",
             f"- `BUTTON_TITLE`: {strings_data.get('BUTTON_TITLE')}",
             "",
-            "## Privacy and Consent Sections",
-            f"- Preamble: {preamble.splitlines()[0]}",
+            "## Privacy and Consent Text",
         ]
     )
+    if preamble:
+        lines.extend(["", preamble, ""])
     for heading, body in section_pairs:
-        first_sentence = body.split(". ")[0].strip()
-        if first_sentence and not first_sentence.endswith("."):
-            first_sentence += "."
-        lines.append(f"- `{heading}`: {first_sentence}")
+        lines.extend([f"### {heading}", ""])
+        if body:
+            lines.extend(body.splitlines())
+            lines.append("")
     lines.extend(
         [
-            "",
             "## Operational Rules Apple States Explicitly",
             "- No model is enabled by default; the user must enable a model before information is shared.",
             "- Conversation history is stored in Xcode and can be viewed or deleted.",
@@ -933,6 +1186,8 @@ def render_onboarding_privacy_doc() -> str:
 
 
 def parse_ndjson(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
     rows: list[dict] = []
     for line in read_text(path).splitlines():
         line = line.strip()
@@ -1043,9 +1298,13 @@ def classify_source(path: Path, output: Path | None) -> SourceRecord:
     if str(path).startswith(str(XCODE_RESOURCES)):
         source_type = "binary" if path.name in {"claude", "codex"} else (path.suffix.lstrip(".") or "file")
         provenance = "canonical-xcode"
-        if path.suffix == ".idechatprompttemplate" or path.parent == XCODE_ADDITIONAL:
+        if path.suffix == ".idechatprompttemplate":
+            handling = "adapt-and-incorporate"
+            root_label = "XCODE_RESOURCES"
+            discovery = f'fd -H -t f -a -e {path.suffix.lstrip(".")} . "${root_label}"'
+        elif path.parent == XCODE_ADDITIONAL:
             handling = "extract-and-incorporate"
-            root_label = "XCODE_RESOURCES" if path.suffix == ".idechatprompttemplate" else "XCODE_ADDITIONAL_DOCUMENTATION"
+            root_label = "XCODE_ADDITIONAL_DOCUMENTATION"
             discovery = f'fd -H -t f -a -e {path.suffix.lstrip(".")} . "${root_label}"'
         else:
             handling = "summarize-structured"
